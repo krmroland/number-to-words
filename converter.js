@@ -2,7 +2,7 @@
  * look up for defining our values
  * @type {Object}
  */
-const lookup = {
+var lookup = {
 	1: "one",
 	2: "two",
 	3: "three",
@@ -36,7 +36,7 @@ const lookup = {
  * the powers object
  * @type {Object}
  */
-const powers = {
+var powers = {
 	100: "hundred",
 	1000: "thousand",
 	1000000: "million",
@@ -105,16 +105,16 @@ NumericConverter.prototype._convert = function(number) {
 NumericConverter.prototype._convertLessThan100 = function(number) {
 	//we will need to split it hundreds, tens and ones
 	//eg 46/10 is 4 (integer division) , 4*10 is 40
-	const tens = Number.parseInt(number / 10) * 10;
+	var tens = Number.parseInt(number / 10) * 10;
 
-	const tensLabel = lookup[tens];
+	var tensLabel = lookup[tens];
 
 	// we will then need the remainder or ones
-	const remainder = number % 10;
+	var remainder = number % 10;
 
 	//we are sure that the remainder is something in our lookup unless it is a zero
 	//
-	return remainder > 0 ? `${tensLabel} ${lookup[remainder]}` : tensLabel;
+	return remainder > 0 ? tensLabel + " " + lookup[remainder] : tensLabel;
 };
 
 /**
@@ -127,16 +127,16 @@ NumericConverter.prototype._convertLessThan1000 = function(number) {
 	//first we will need to know how many hundreds we are working with
 
 	// eg 695 , 695/100 as integer will give us 6
-	const hundreds = Number.parseInt(number / 100);
+	var hundreds = Number.parseInt(number / 100);
 
 	//
-	const hundredsLabel = lookup[hundreds] + " " + powers[100];
+	var hundredsLabel = lookup[hundreds] + " " + powers[100];
 
 	// we will then need the remainder ie 95 for our example 695
-	const remainder = number % 100;
+	var remainder = number % 100;
 	// we know the remainder is
 	return remainder > 0
-		? `${hundredsLabel} ${this._convertLessThan100(remainder)}`
+		? hundredsLabel + " " + this._convertLessThan100(remainder)
 		: hundredsLabel;
 };
 
@@ -153,17 +153,17 @@ NumericConverter.prototype._convertThreePowerNumber = function(number) {
 	//we know all our upper units are to the powers of multiples of 3
 	//say 1000=>10^3, 1M=>10^6 and 1B=>10^9,
 	//so will get the number of digits and we round it of to the nearest multiple of 3
-	let result = [];
+	var result = [];
 
-	const powerUnit = 10 ** (Number.parseInt(Math.log10(number) / 3) * 3);
+	var powerUnit = 10 ** (Number.parseInt(Math.log10(number) / 3) * 3);
 
-	const numberOfUnits = Number.parseInt(number / powerUnit);
+	var numberOfUnits = Number.parseInt(number / powerUnit);
 
 	// this would give us 254 and we will convert it and push it to the result
 	result.push(this._convert(numberOfUnits));
 
 	if (!powers.hasOwnProperty(powerUnit)) {
-		const values = Object.values(powers);
+		var values = Object.values(powers);
 		throw new Error(
 			"Values are defined upto a " + values[values.length - 1]
 		);
@@ -174,7 +174,7 @@ NumericConverter.prototype._convertThreePowerNumber = function(number) {
 	//we know its in the lookup and so we go for it
 
 	//remainder , this would be 900 in ou case
-	const remainder = number % powerUnit;
+	var remainder = number % powerUnit;
 	//we check if the remainder is greater than 0,
 	//use recursion to convert in and add it to result
 	remainder > 0 ? result.push(this._convert(remainder)) : null;
@@ -185,12 +185,12 @@ NumericConverter.prototype._convertThreePowerNumber = function(number) {
 
 //Rendering the  app for demo purpoes
 (function() {
-	const app = document.getElementById("app");
+	var app = document.getElementById("app");
 
-	const Converter = new NumericConverter();
+	var Converter = new NumericConverter();
 
 	function onInputHandler(event) {
-		let words = "";
+		var words = "";
 
 		try {
 			words = Converter.setNumber(event.target.value).toWords();
@@ -207,9 +207,9 @@ NumericConverter.prototype._convertThreePowerNumber = function(number) {
 	 * @return {Element}
 	 */
 	function appendLabelToInput(input, labelValue) {
-		const rootInput = document.createElement("div");
+		var rootInput = document.createElement("div");
 		rootInput.setAttribute("class", "form-group");
-		const label = document.createElement("label");
+		var label = document.createElement("label");
 		label.textContent = labelValue;
 
 		rootInput.appendChild(label);
@@ -218,14 +218,14 @@ NumericConverter.prototype._convertThreePowerNumber = function(number) {
 	}
 
 	//creates an iput
-	const input = document.createElement("input");
+	var input = document.createElement("input");
 	//set its acctributes like type and text
 	input.setAttribute("type", "text");
 	input.setAttribute("placeholder", "Please insert A number");
 	input.setAttribute("class", "form-control");
 	//creates a resuts text areas
-	const result = document.createElement("textarea");
-	//set the class and make it disabled
+	var result = document.createElement("textarea");
+	//set the class and make it readonly
 	result.setAttribute("readonly", true);
 	result.setAttribute("class", "form-control");
 	result.setAttribute("placeholder", "Result will appear here");

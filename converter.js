@@ -114,7 +114,7 @@ NumericConverter.prototype._convertLessThan100 = function(number) {
 
 	//we are sure that the remainder is something in our lookup unless it is a zero
 	//
-	return remainder > 0 ? `${tensLabel} ${lookup[remainder]}` : tensLabel;
+	return remainder > 0 ? tensLabel + " " + lookup[remainder] : tensLabel;
 };
 
 /**
@@ -136,7 +136,7 @@ NumericConverter.prototype._convertLessThan1000 = function(number) {
 	const remainder = number % 100;
 	// we know the remainder is
 	return remainder > 0
-		? `${hundredsLabel} ${this._convertLessThan100(remainder)}`
+		? hundredsLabel + " " + this._convertLessThan100(remainder)
 		: hundredsLabel;
 };
 

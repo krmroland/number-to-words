@@ -136,7 +136,7 @@ NumericConverter.prototype._convertLessThan1000 = function(number) {
 	var remainder = number % 100;
 	// we know the remainder is
 	return remainder > 0
-		? hundredsLabel + " " + this._convertLessThan100(remainder)
+		? hundredsLabel + " " + this._convert(remainder)
 		: hundredsLabel;
 };
 

@@ -225,7 +225,7 @@ NumericConverter.prototype._convertThreePowerNumber = function(number) {
 	input.setAttribute("class", "form-control");
 	//creates a resuts text areas
 	const result = document.createElement("textarea");
-	//set the class and make it disabled
+	//set the class and make it readonly
 	result.setAttribute("readonly", true);
 	result.setAttribute("class", "form-control");
 	result.setAttribute("placeholder", "Result will appear here");

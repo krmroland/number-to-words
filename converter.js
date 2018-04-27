@@ -182,3 +182,7 @@ NumericConverter.prototype._convertThreePowerNumber = function(number) {
     //at this point we explode our results and join them using an empty string for the start
     return result.join(" ");
 };
+
+if (typeof exports === "object") {
+    module.exports = NumericConverter;
+}

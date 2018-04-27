@@ -4,7 +4,7 @@
   "description": "#### converts a number say 1000 to one thousand.",
   "main": "converter.js",
   "scripts": {
-    "test": "jest --watchAll"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",

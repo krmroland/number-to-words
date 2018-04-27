@@ -3,33 +3,33 @@
  * @type {Object}
  */
 const lookup = {
-	1: "one",
-	2: "two",
-	3: "three",
-	4: "four",
-	5: "five",
-	6: "six",
-	7: "seven",
-	8: "eight",
-	9: "nine",
-	10: "ten",
-	11: "eleven",
-	12: "twelve",
-	13: "thirteen",
-	14: "fourteen",
-	15: "fifteen",
-	16: "sixteen",
-	17: "seventeen",
-	18: "eighteen",
-	19: "nineteen",
-	20: "twenty",
-	30: "thirty",
-	40: "forty",
-	50: "fifty",
-	60: "sixty",
-	70: "seventy",
-	80: "eighty",
-	90: "ninety"
+    1: "one",
+    2: "two",
+    3: "three",
+    4: "four",
+    5: "five",
+    6: "six",
+    7: "seven",
+    8: "eight",
+    9: "nine",
+    10: "ten",
+    11: "eleven",
+    12: "twelve",
+    13: "thirteen",
+    14: "fourteen",
+    15: "fifteen",
+    16: "sixteen",
+    17: "seventeen",
+    18: "eighteen",
+    19: "nineteen",
+    20: "twenty",
+    30: "thirty",
+    40: "forty",
+    50: "fifty",
+    60: "sixty",
+    70: "seventy",
+    80: "eighty",
+    90: "ninety"
 };
 
 /**
@@ -37,11 +37,11 @@ const lookup = {
  * @type {Object}
  */
 const powers = {
-	100: "hundred",
-	1000: "thousand",
-	1000000: "million",
-	1000000000: "billion",
-	1000000000: "trillion"
+    100: "hundred",
+    1000: "thousand",
+    1000000: "million",
+    1000000000: "billion",
+    1000000000: "trillion"
 };
 
 /**
@@ -51,14 +51,14 @@ const powers = {
 function NumericConverter() {}
 
 NumericConverter.prototype.setNumber = function(number) {
-	//we have to make sure we are dealing with numbers
-	//the + tries to convert an input to a number and return NaN(Not a number on failure)
-	if (isNaN(+number) && !isFinite(number)) {
-		throw new Error(number + " is not a valid number");
-	}
-	//for now we will wory about integers
-	this.number = Number.parseInt(number);
-	return this;
+    //we have to make sure we are dealing with numbers
+    //the + tries to convert an input to a number and return NaN(Not a number on failure)
+    if (isNaN(+number) && !isFinite(number)) {
+        throw new Error(number + " is not a valid number");
+    }
+    //for now we will wory about integers
+    this.number = Number.parseInt(number);
+    return this;
 };
 
 /**
@@ -66,7 +66,7 @@ NumericConverter.prototype.setNumber = function(number) {
  * @return {string}
  */
 NumericConverter.prototype.toWords = function() {
-	return this.number ? this._convert(this.number) : "";
+    return this.number ? this._convert(this.number) : "";
 };
 
 /**
@@ -76,45 +76,45 @@ NumericConverter.prototype.toWords = function() {
  * @return {String}
  */
 NumericConverter.prototype._convert = function(number) {
-	//numbers that exist in the above look up
-	if (number in lookup) {
-		return lookup[number];
-	}
+    //numbers that exist in the above look up
+    if (number in lookup) {
+        return lookup[number];
+    }
 
-	//numbers less than 100 eg 46
-	if (number < 100) {
-		return this._convertLessThan100(number);
-	}
-	//numbers less than 1000
-	if (number < 1000) {
-		return this._convertLessThan1000(number);
-	}
-	// at this point we know we have a 3 multiple power number
-	// eg 1000 which is 10^3 , 1000,000 10^6, 1,000,000,000 10^9
-	// so we will use that to our advatage
+    //numbers less than 100 eg 46
+    if (number < 100) {
+        return this._convertLessThan100(number);
+    }
+    //numbers less than 1000
+    if (number < 1000) {
+        return this._convertLessThan1000(number);
+    }
+    // at this point we know we have a 3 multiple power number
+    // eg 1000 which is 10^3 , 1000,000 10^6, 1,000,000,000 10^9
+    // so we will use that to our advatage
 
-	return this._convertThreePowerNumber(number);
+    return this._convertThreePowerNumber(number);
 };
 
 /**
- * @todo  remove this method when drting up this code
+ * @todo  remove this method when drying up this code
  * converts all numbers less than 100
  * @param  {Number} number
  * @return {String}
  */
 NumericConverter.prototype._convertLessThan100 = function(number) {
-	//we will need to split it hundreds, tens and ones
-	//eg 46/10 is 4 (integer division) , 4*10 is 40
-	const tens = Number.parseInt(number / 10) * 10;
+    //we will need to split it hundreds, tens and ones
+    //eg 46/10 is 4 (integer division) , 4*10 is 40
+    const tens = Number.parseInt(number / 10) * 10;
 
-	const tensLabel = lookup[tens];
+    const tensLabel = lookup[tens];
 
-	// we will then need the remainder or ones
-	const remainder = number % 10;
+    // we will then need the remainder or ones
+    const remainder = number % 10;
 
-	//we are sure that the remainder is something in our lookup unless it is a zero
-	//
-	return remainder > 0 ? `${tensLabel} ${lookup[remainder]}` : tensLabel;
+    //we are sure that the remainder is something in our lookup unless it is a zero
+    //
+    return remainder > 0 ? `${tensLabel} ${lookup[remainder]}` : tensLabel;
 };
 
 /**
@@ -124,20 +124,20 @@ NumericConverter.prototype._convertLessThan100 = function(number) {
  * @return {String}
  */
 NumericConverter.prototype._convertLessThan1000 = function(number) {
-	//first we will need to know how many hundreds we are working with
+    //first we will need to know how many hundreds we are working with
 
-	// eg 695 , 695/100 as integer will give us 6
-	const hundreds = Number.parseInt(number / 100);
+    // eg 695 , 695/100 as integer will give us 6
+    const hundreds = Number.parseInt(number / 100);
 
-	//
-	const hundredsLabel = lookup[hundreds] + " " + powers[100];
+    //
+    const hundredsLabel = lookup[hundreds] + " " + powers[100];
 
-	// we will then need the remainder ie 95 for our example 695
-	const remainder = number % 100;
-	// we know the remainder is
-	return remainder > 0
-		? `${hundredsLabel} ${this._convertLessThan100(remainder)}`
-		: hundredsLabel;
+    // we will then need the remainder ie 95 for our example 695
+    const remainder = number % 100;
+    // we know the remainder is
+    return remainder > 0
+        ? `${hundredsLabel} ${this._convertLessThan100(remainder)}`
+        : hundredsLabel;
 };
 
 /**
@@ -147,92 +147,92 @@ NumericConverter.prototype._convertLessThan1000 = function(number) {
  * @return {String}
  */
 NumericConverter.prototype._convertThreePowerNumber = function(number) {
-	//case study 254,000,900
-	//first we will want to know which unit we are working with
-	//for 254,000,000 the unit is million
-	//we know all our upper units are to the powers of multiples of 3
-	//say 1000=>10^3, 1M=>10^6 and 1B=>10^9,
-	//so will get the number of digits and we round it of to the nearest multiple of 3
-	let result = [];
+    //case study 254,000,900
+    //first we will want to know which unit we are working with
+    //for 254,000,000 the unit is million
+    //we know all our upper units are to the powers of multiples of 3
+    //say 1000=>10^3, 1M=>10^6 and 1B=>10^9,
+    //so will get the number of digits and we round it of to the nearest multiple of 3
+    let result = [];
 
-	const powerUnit = 10 ** (Number.parseInt(Math.log10(number) / 3) * 3);
+    const powerUnit = 10 ** (Number.parseInt(Math.log10(number) / 3) * 3);
 
-	const numberOfUnits = Number.parseInt(number / powerUnit);
+    const numberOfUnits = Number.parseInt(number / powerUnit);
 
-	// this would give us 254 and we will convert it and push it to the result
-	result.push(this._convert(numberOfUnits));
+    // this would give us 254 and we will convert it and push it to the result
+    result.push(this._convert(numberOfUnits));
 
-	if (!powers.hasOwnProperty(powerUnit)) {
-		const values = Object.values(powers);
-		throw new Error(
-			"Values are defined upto a " + values[values.length - 1]
-		);
-	}
+    if (!powers.hasOwnProperty(powerUnit)) {
+        const values = Object.values(powers);
+        throw new Error(
+            "Values are defined upto a " + values[values.length - 1]
+        );
+    }
 
-	result.push(powers[powerUnit]);
-	//we will also have to push the power label of of the powerUnit,
-	//we know its in the lookup and so we go for it
+    result.push(powers[powerUnit]);
+    //we will also have to push the power label of of the powerUnit,
+    //we know its in the lookup and so we go for it
 
-	//remainder , this would be 900 in ou case
-	const remainder = number % powerUnit;
-	//we check if the remainder is greater than 0,
-	//use recursion to convert in and add it to result
-	remainder > 0 ? result.push(this._convert(remainder)) : null;
+    //remainder , this would be 900 in ou case
+    const remainder = number % powerUnit;
+    //we check if the remainder is greater than 0,
+    //use recursion to convert in and add it to result
+    remainder > 0 ? result.push(this._convert(remainder)) : null;
 
-	//at this point we explode our results and join them using an empty string for the start
-	return result.join(" ");
+    //at this point we explode our results and join them using an empty string for the start
+    return result.join(" ");
 };
 
 //Rendering the  app for demo purpoes
 (function() {
-	const app = document.getElementById("app");
+    const app = document.getElementById("app");
 
-	const Converter = new NumericConverter();
+    const Converter = new NumericConverter();
 
-	function onInputHandler(event) {
-		let words = "";
+    function onInputHandler(event) {
+        let words = "";
 
-		try {
-			words = Converter.setNumber(event.target.value).toWords();
-		} catch (e) {
-			words = e.message;
-		}
-		result.value = words;
-	}
+        try {
+            words = Converter.setNumber(event.target.value).toWords();
+        } catch (e) {
+            words = e.message;
+        }
+        result.value = words;
+    }
 
-	/**
-	 * appends a label to input
-	 * @param  {Element} input
-	 * @param  {String} labelValue
-	 * @return {Element}
-	 */
-	function appendLabelToInput(input, labelValue) {
-		const rootInput = document.createElement("div");
-		rootInput.setAttribute("class", "form-group");
-		const label = document.createElement("label");
-		label.textContent = labelValue;
+    /**
+     * appends a label to input
+     * @param  {Element} input
+     * @param  {String} labelValue
+     * @return {Element}
+     */
+    function appendLabelToInput(input, labelValue) {
+        const rootInput = document.createElement("div");
+        rootInput.setAttribute("class", "form-group");
+        const label = document.createElement("label");
+        label.textContent = labelValue;
 
-		rootInput.appendChild(label);
-		rootInput.appendChild(input);
-		return rootInput;
-	}
+        rootInput.appendChild(label);
+        rootInput.appendChild(input);
+        return rootInput;
+    }
 
-	//creates an iput
-	const input = document.createElement("input");
-	//set its acctributes like type and text
-	input.setAttribute("type", "text");
-	input.setAttribute("placeholder", "Please insert A number");
-	input.setAttribute("class", "form-control");
-	//creates a resuts text areas
-	const result = document.createElement("textarea");
-	//set the class and make it readonly
-	result.setAttribute("readonly", true);
-	result.setAttribute("class", "form-control");
-	result.setAttribute("placeholder", "Result will appear here");
+    //creates an iput
+    const input = document.createElement("input");
+    //set its acctributes like type and text
+    input.setAttribute("type", "text");
+    input.setAttribute("placeholder", "Please insert A number");
+    input.setAttribute("class", "form-control");
+    //creates a resuts text areas
+    const result = document.createElement("textarea");
+    //set the class and make it readonly
+    result.setAttribute("readonly", true);
+    result.setAttribute("class", "form-control");
+    result.setAttribute("placeholder", "Result will appear here");
 
-	//regester an event listener for when the input valu changes
-	input.addEventListener("input", onInputHandler);
+    //regester an event listener for when the input valu changes
+    input.addEventListener("input", onInputHandler);
 
-	app.appendChild(appendLabelToInput(input, "Number"));
-	app.appendChild(appendLabelToInput(result, "Inwords"));
+    app.appendChild(appendLabelToInput(input, "Number"));
+    app.appendChild(appendLabelToInput(result, "Inwords"));
 })();

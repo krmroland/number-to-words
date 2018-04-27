@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/krmroland/number-to-words/issues"
   },
-  "homepage": "https://github.com/krmroland/number-to-words#readme"
+  "homepage": "https://github.com/krmroland/number-to-words#readme",
+  "devDependencies": {
+    "jest": "^22.4.3"
+  }
 }
